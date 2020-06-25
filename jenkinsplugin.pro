@@ -56,11 +56,11 @@ CONFIG += c++14
 
 ## set the QTC_SOURCE environment variable to override the setting here
 QTCREATOR_SOURCES = $$(QTC_SOURCE)
-isEmpty(QTCREATOR_SOURCES):QTCREATOR_SOURCES=/home/oldfrostdragon/Sources/qt-creator-latest
+isEmpty(QTCREATOR_SOURCES):QTCREATOR_SOURCES=$$(HOME)/Qt/qt-creator-opensource-src-4.12.0
 
 ## set the QTC_BUILD environment variable to override the setting here
 IDE_BUILD_TREE = $$(QTC_BUILD)
-isEmpty(IDE_BUILD_TREE):IDE_BUILD_TREE=/home/oldfrostdragon/Sources/qt-creator-4.2.0-build
+isEmpty(IDE_BUILD_TREE):IDE_BUILD_TREE=$$(HOME)/Qt/Tools/QtCreator
 
 ## uncomment to build plugin into user config directory
 ## <localappdata>/plugins/<ideversion>

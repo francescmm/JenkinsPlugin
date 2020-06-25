@@ -16,44 +16,44 @@ namespace Internal
 
 struct ViewInfo
 {
-    QUrl url;
-    QString name;
+   QUrl url;
+   QString name;
 };
 
 inline uint qHash(const ViewInfo &key, uint seed)
 {
-    return qHash(key.url, seed) ^ qHash(key.name, seed);
+   return qHash(key.url, seed) ^ qHash(key.name, seed);
 }
 
 inline bool operator==(const ViewInfo &first, const ViewInfo &second)
 {
-    return first.name == second.name && first.url == second.url;
+   return first.name == second.name && first.url == second.url;
 }
 
 class JenkinsViewFetcher : public QObject
 {
-    Q_OBJECT
+   Q_OBJECT
 public:
-    explicit JenkinsViewFetcher(const std::shared_ptr< RestRequestBuilder > builder);
+   explicit JenkinsViewFetcher(const std::shared_ptr<RestRequestBuilder> builder, QObject *parent = nullptr);
 
-    void fetchViews();
+   void fetchViews();
 
 signals:
-    void viewsFetched(QSet< ViewInfo > views);
+   void viewsFetched(QSet<ViewInfo> views);
 
 public:
-    void startBackgroundFetching();
-    void stopBackgroundFetching();
+   void startBackgroundFetching();
+   void stopBackgroundFetching();
 
 private:
-    void readReply(QNetworkReply *reply);
+   void readReply(QNetworkReply *reply);
 
 private:
-    std::shared_ptr< RestRequestBuilder > _builder;
-    QNetworkAccessManager *_manager;
-    QTimer *_timer;
+   std::shared_ptr<RestRequestBuilder> _builder;
+   QNetworkAccessManager *_manager;
+   QTimer *_timer;
 };
 }
 }
 
-#endif  // JENKINSVIEWFETCHER_H
+#endif // JENKINSVIEWFETCHER_H
