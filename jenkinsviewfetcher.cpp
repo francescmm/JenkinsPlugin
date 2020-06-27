@@ -15,10 +15,7 @@ JenkinsViewFetcher::JenkinsViewFetcher(const std::shared_ptr<RestRequestBuilder>
    _manager = new QNetworkAccessManager(this);
    connect(_manager, &QNetworkAccessManager::finished, this, &JenkinsViewFetcher::readReply);
 
-   _timer = new QTimer(this);
-   _timer->setInterval(1000 * 10); // 10 seconds
-   connect(_timer, &QTimer::timeout, this, &JenkinsViewFetcher::fetchViews);
-   startBackgroundFetching();
+   fetchViews();
 }
 
 void JenkinsViewFetcher::fetchViews()
@@ -32,16 +29,6 @@ void JenkinsViewFetcher::fetchViews()
    }
    QNetworkRequest request = _builder->buildRequest(rootUrl);
    _manager->get(request);
-}
-
-void JenkinsViewFetcher::startBackgroundFetching()
-{
-   _timer->start();
-}
-
-void JenkinsViewFetcher::stopBackgroundFetching()
-{
-   _timer->stop();
 }
 
 void JenkinsViewFetcher::readReply(QNetworkReply *reply)

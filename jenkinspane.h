@@ -22,53 +22,54 @@ class JenkinsJobsModel;
 
 class JenkinsPane : public Core::IOutputPane
 {
-    Q_OBJECT
+   Q_OBJECT
 public:
-    JenkinsPane(const std::shared_ptr<RestRequestBuilder> builder, QObject *parent = 0);
-    ~JenkinsPane();
+   JenkinsPane(const std::shared_ptr<RestRequestBuilder> builder, QObject *parent = 0);
+   ~JenkinsPane();
 
-    // IOutputPane interface
+   // IOutputPane interface
 public:
-    QWidget *outputWidget(QWidget *) { return _view; }
-    QList< QWidget * > toolBarWidgets() const;
-    QString displayName() const;
-    int priorityInStatusBar() const;
-    void clearContents() {}
-    void visibilityChanged(bool visible);
-    void setFocus();
-    bool hasFocus() const;
-    bool canFocus() const;
-    bool canNavigate() const;
-    bool canNext() const;
-    bool canPrevious() const;
-    void goToNext() {}
-    void goToPrev() {}
+   QWidget *outputWidget(QWidget *) { return _view; }
+   QList<QWidget *> toolBarWidgets() const;
+   QString displayName() const;
+   int priorityInStatusBar() const;
+   void clearContents() { }
+   void visibilityChanged(bool visible);
+   void setFocus();
+   bool hasFocus() const;
+   bool canFocus() const;
+   bool canNavigate() const;
+   bool canNext() const;
+   bool canPrevious() const;
+   void goToNext() { }
+   void goToPrev() { }
 
-    ViewInfo getSelectedView() const;
+   ViewInfo getSelectedView() const;
 signals:
-    void buildHistoryRequested(const JenkinsJob job);
-    void currentViewChanged();
+   void buildHistoryRequested(const JenkinsJob job);
+   void currentViewChanged();
+   void signalForceFetch();
 
 public slots:
-    void clearViews();
-    void updateViews(const QSet<ViewInfo> &views);
+   void clearViews();
+   void updateViews(const QSet<ViewInfo> &views);
 
 private slots:
-    void onCustomContextMenuRequested(const QPoint &point);
-    void requestBuildHistory();
-    void openInBrowser();
+   void onCustomContextMenuRequested(const QPoint &point);
+   void requestBuildHistory();
+   void openInBrowser();
 
 private:
-    QTreeView *_view;
-    QModelIndex _contextMenuIndex;
-    JenkinsTreeItemDelegate *_delegate;
-    JenkinsJobsModel *_model;
-    QLabel *_viewLabel;
-    JenkinsViewComboBox *_jenkinsViewComboBox;
+   QTreeView *_view;
+   QModelIndex _contextMenuIndex;
+   JenkinsTreeItemDelegate *_delegate;
+   JenkinsJobsModel *_model;
+   QLabel *_viewLabel;
+   JenkinsViewComboBox *_jenkinsViewComboBox;
 
-    std::shared_ptr<RestRequestBuilder> _restRequestBuilder;
+   std::shared_ptr<RestRequestBuilder> _restRequestBuilder;
 };
 }
 }
 
-#endif  // JENKINSPANE_H
+#endif // JENKINSPANE_H

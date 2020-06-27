@@ -54,6 +54,7 @@ bool JenkinsCIPlugin::initialize(const QStringList &arguments, QString *errorStr
 
    _pane = new JenkinsPane(_restRequestBuilder, this);
    connect(_pane, &JenkinsPane::buildHistoryRequested, this, &JenkinsCIPlugin::showJobHistoryDialog);
+   connect(_pane, &JenkinsPane::signalForceFetch, _viewFetcher, &JenkinsViewFetcher::fetchViews);
 
    _fetchTimeoutManager = new FetchingTimeoutManager(this);
 
@@ -67,12 +68,6 @@ bool JenkinsCIPlugin::initialize(const QStringList &arguments, QString *errorStr
 
    JenkinsJobsModel::instance()->resetModel(_settings.jenkinsUrl());
 
-   connect(_fetchTimeoutManager, &FetchingTimeoutManager::viewUpdateRequested, _viewFetcher,
-           &JenkinsViewFetcher::fetchViews);
-   connect(_fetchTimeoutManager, &FetchingTimeoutManager::jobDataUpdateRequested, this, [=]() {
-      QUrl currentViewUrl = _restRequestBuilder->buildThisOrDefaultViewUrl(_pane->getSelectedView().url.toString());
-      _fetcher->fetchJobs(currentViewUrl);
-   });
    connect(_fetchTimeoutManager, &FetchingTimeoutManager::jobForcedUpdateRequested, this, [=]() {
       QUrl currentViewUrl = _restRequestBuilder->buildThisOrDefaultViewUrl(_pane->getSelectedView().url.toString());
       _fetcher->forceRefetch(currentViewUrl);
@@ -95,7 +90,6 @@ bool JenkinsCIPlugin::initialize(const QStringList &arguments, QString *errorStr
    connect(JenkinsJobsModel::instance(), &JenkinsJobsModel::jobFailed, _buildNotificator.get(),
            &BuildNotificator::notifyAboutFailure);
 
-   _fetchTimeoutManager->startTimer();
    return true;
 }
 

@@ -70,17 +70,11 @@ public:
 signals:
    void viewsFetched(QSet<ViewInfo> views);
 
-public:
-   void startBackgroundFetching();
-   void stopBackgroundFetching();
-
 private:
    void readReply(QNetworkReply *reply);
 
-private:
    std::shared_ptr<RestRequestBuilder> _builder;
    QNetworkAccessManager *_manager;
-   QTimer *_timer;
 };
 }
 }
