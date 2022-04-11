@@ -1,0 +1,8 @@
+{
+   "Name" : "JenkinsPlugin",
+   "Version" : "0.1.0",
+   "Vendor" : "Cesc Software",
+   "Copyright" : "(C) 2022 Francesc M.",
+   "Url" : "https://github.com/francescmm/JenkinsPlugin",
+   "License" : "GPLv2"
+}
