@@ -14,8 +14,6 @@ CONFIG += qt warn_on c++17 c++1z
 
 DESTDIR = lib
 
-DISTFILES = $$PWD/src/IJenkinsWidget.h
-
 include(src/Jenkins.pri)
 include(src/AuxiliarCustomWidgets/AuxiliarCustomWidgets.pri)
 include(src/QLogger/QLogger.pri)
@@ -35,7 +33,8 @@ CONFIG(debug, debug|release) {
     linux: TARGET = $$join(TARGET,,,d_$$VERSION)
 }
 
-copydata.commands = $(COPY_DIR) $$PWD/src/IJenkinsWidget.h $$DESTDIR
+copydata.commands = $(COPY_DIR) $$PWD/src/IJenkinsWidget.h $$PWD/src/jenkinsplugin_global.h $${DESTDIR}
+
 first.depends = $(first) copydata
 export(first.depends)
 export(copydata.commands)
