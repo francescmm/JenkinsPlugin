@@ -28,4 +28,4 @@ HEADERS += \
     $$PWD/StageFetcher.h \
     $$PWD/jenkinsplugin_global.h
 
-OTHER += $$PWD/JenkinsPlugin.json
+OTHER_FILES += $$PWD/JenkinsPlugin.json

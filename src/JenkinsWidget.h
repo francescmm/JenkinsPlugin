@@ -22,7 +22,7 @@ namespace Jenkins
 class RepoFetcher;
 class JobContainer;
 
-class JenkinsWidget final : public QWidget, public IJenkinsWidget
+class JenkinsWidget final : public IJenkinsWidget
 {
    Q_OBJECT
    Q_PLUGIN_METADATA(IID "francescmm.JenkinsPlugin" FILE "JenkinsPlugin.json")
@@ -36,9 +36,9 @@ public:
    JenkinsWidget(QWidget *parent = nullptr);
    ~JenkinsWidget() override;
 
-   void initialize(const QString &url, const QString &user, const QString &token) override;
-
-   void reload() const override;
+   void init(const QString &url, const QString &user, const QString &token) override;
+   void update() const override;
+   IJenkinsWidget *createWidget() override;
 
 private:
    IFetcher::Config mConfig;

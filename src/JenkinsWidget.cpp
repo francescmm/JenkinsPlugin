@@ -14,7 +14,7 @@ namespace Jenkins
 {
 
 JenkinsWidget::JenkinsWidget(QWidget *parent)
-   : QWidget(parent)
+   : IJenkinsWidget(parent)
    , mStackedLayout(new QStackedLayout())
    , mBodyLayout(new QHBoxLayout())
    , mBtnGroup(new QButtonGroup())
@@ -54,7 +54,7 @@ JenkinsWidget::~JenkinsWidget()
    delete mBtnGroup;
 }
 
-void JenkinsWidget::initialize(const QString &url, const QString &user, const QString &token)
+void JenkinsWidget::init(const QString &url, const QString &user, const QString &token)
 {
    mConfig = IFetcher::Config { user, token, nullptr };
    mConfig.accessManager.reset(new QNetworkAccessManager());
@@ -63,11 +63,16 @@ void JenkinsWidget::initialize(const QString &url, const QString &user, const QS
    connect(mRepoFetcher, &RepoFetcher::signalViewsReceived, this, &JenkinsWidget::configureGeneralView);
 }
 
-void JenkinsWidget::reload() const
+void JenkinsWidget::update() const
 {
    mTimer->stop();
    mRepoFetcher->triggerFetch();
    mTimer->start();
+}
+
+IJenkinsWidget *JenkinsWidget::createWidget()
+{
+   return new JenkinsWidget();
 }
 
 void JenkinsWidget::configureGeneralView(const QVector<JenkinsViewInfo> &views)
