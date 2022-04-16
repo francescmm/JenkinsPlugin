@@ -33,7 +33,11 @@ CONFIG(debug, debug|release) {
     linux: TARGET = $$join(TARGET,,,d_$$VERSION)
 }
 
-copydata.commands = $(COPY_DIR) $$PWD/src/IJenkinsWidget.h $$PWD/src/jenkinsplugin_global.h $${DESTDIR}
+win32 {
+   copydata.commands = $(COPY_DIR) $$PWD\src\IJenkinsWidget.h $$PWD\src\jenkinsplugin_global.h $${DESTDIR}
+} else {
+   copydata.commands = $(COPY_DIR) $$PWD/src/IJenkinsWidget.h $$PWD/src/jenkinsplugin_global.h $${DESTDIR}
+}
 
 first.depends = $(first) copydata
 export(first.depends)
