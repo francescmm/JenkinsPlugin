@@ -10,16 +10,13 @@
 
 class JENKINSPLUGIN_EXPORT IJenkinsWidget : public QWidget
 {
+   Q_OBJECT
+
 signals:
    void gotoPullRequest(int prNumber);
    void gotoBranch(const QString &branchName);
 
 public:
-   IJenkinsWidget(QWidget *parent = nullptr)
-      : QWidget(parent)
-   {
-   }
-
    virtual ~IJenkinsWidget() = default;
 
    virtual void init(const QString &url, const QString &user, const QString &token) = 0;

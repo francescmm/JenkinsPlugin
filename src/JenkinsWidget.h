@@ -28,12 +28,8 @@ class JenkinsWidget final : public IJenkinsWidget
    Q_PLUGIN_METADATA(IID "francescmm.JenkinsPlugin" FILE "JenkinsPlugin.json")
    Q_INTERFACES(IJenkinsWidget)
 
-signals:
-   void gotoPullRequest(int prNumber);
-   void gotoBranch(const QString &branchName);
-
 public:
-   JenkinsWidget(QWidget *parent = nullptr);
+   JenkinsWidget();
    ~JenkinsWidget() override;
 
    void init(const QString &url, const QString &user, const QString &token) override;

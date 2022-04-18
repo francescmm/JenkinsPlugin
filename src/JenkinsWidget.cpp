@@ -13,9 +13,8 @@
 namespace Jenkins
 {
 
-JenkinsWidget::JenkinsWidget(QWidget *parent)
-   : IJenkinsWidget(parent)
-   , mStackedLayout(new QStackedLayout())
+JenkinsWidget::JenkinsWidget()
+   : mStackedLayout(new QStackedLayout())
    , mBodyLayout(new QHBoxLayout())
    , mBtnGroup(new QButtonGroup())
    , mButtonsLayout(new QVBoxLayout())
