@@ -34,9 +34,9 @@ CONFIG(debug, debug|release) {
 }
 
 win32 {
-   copydata.commands = $(COPY_DIR) $$PWD\src\IJenkinsWidget.h $$PWD\src\jenkinsplugin_global.h $${DESTDIR}
+   copydata.commands = $(COPY_DIR) $$shell_quote($$shell_path($$PWD/src/interface/*.h)) $${DESTDIR}
 } else {
-   copydata.commands = $(COPY_DIR) $$PWD/src/IJenkinsWidget.h $$PWD/src/jenkinsplugin_global.h $${DESTDIR}
+   copydata.commands = $(COPY_DIR) $$PWD/src/interface/IJenkinsWidget.h $$PWD/src/interface/jenkinsplugin_global.h $${DESTDIR}
 }
 
 first.depends = $(first) copydata

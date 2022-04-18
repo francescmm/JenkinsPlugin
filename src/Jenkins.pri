@@ -1,4 +1,5 @@
-INCLUDEPATH += $$PWD
+INCLUDEPATH += $$PWD \
+    $$PWD/interface
 
 SOURCES += \
     $$PWD/BuildGeneralInfoFetcher.cpp \
@@ -15,7 +16,7 @@ SOURCES += \
 HEADERS += \
     $$PWD/BuildGeneralInfoFetcher.h \
     $$PWD/IFetcher.h \
-    $$PWD/IJenkinsWidget.h \
+    $$PWD/interface/IJenkinsWidget.h \
     $$PWD/JenkinsJobInfo.h \
     $$PWD/JenkinsJobPanel.h \
     $$PWD/JenkinsViewInfo.h \
@@ -26,6 +27,6 @@ HEADERS += \
     $$PWD/JobFetcher.h \
     $$PWD/RepoFetcher.h \
     $$PWD/StageFetcher.h \
-    $$PWD/jenkinsplugin_global.h
+    $$PWD/interface/jenkinsplugin_global.h
 
 OTHER_FILES += $$PWD/JenkinsPlugin.json
