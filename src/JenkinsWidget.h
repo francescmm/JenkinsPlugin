@@ -32,7 +32,8 @@ public:
    JenkinsWidget();
    ~JenkinsWidget() override;
 
-   void init(const QString &url, const QString &user, const QString &token) override;
+   bool configure(JenkinsPlugin::ConfigData config, const QString &styles) override;
+   void start() override;
    void update() const override;
    IJenkinsWidget *createWidget() override;
 

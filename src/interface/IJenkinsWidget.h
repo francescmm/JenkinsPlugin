@@ -8,6 +8,16 @@
 
 #define IJenkinsWidget_iid "francescmm.JenkinsPlugin/0.1.0"
 
+namespace JenkinsPlugin
+{
+struct ConfigData
+{
+   QString user;
+   QString token;
+   QString endPoint;
+};
+}
+
 class JENKINSPLUGIN_EXPORT IJenkinsWidget : public QWidget
 {
    Q_OBJECT
@@ -19,9 +29,14 @@ signals:
 public:
    virtual ~IJenkinsWidget() = default;
 
-   virtual void init(const QString &url, const QString &user, const QString &token) = 0;
+   virtual bool configure(JenkinsPlugin::ConfigData config, const QString &styles) = 0;
+   virtual bool isConfigured() const { return mConfigured; }
+   virtual void start() = 0;
    virtual void update() const = 0;
    virtual IJenkinsWidget *createWidget() = 0;
+
+protected:
+   bool mConfigured = false;
 };
 
 Q_DECLARE_INTERFACE(IJenkinsWidget, IJenkinsWidget_iid)

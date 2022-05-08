@@ -11,11 +11,13 @@ SOURCES += \
     $$PWD/JobDetailsFetcher.cpp \
     $$PWD/JobFetcher.cpp \
     $$PWD/RepoFetcher.cpp \
+    $$PWD/ServerConfigDlg.cpp \
     $$PWD/StageFetcher.cpp
 
 HEADERS += \
     $$PWD/BuildGeneralInfoFetcher.h \
     $$PWD/IFetcher.h \
+    $$PWD/ServerConfigDlg.h \
     $$PWD/interface/IJenkinsWidget.h \
     $$PWD/JenkinsJobInfo.h \
     $$PWD/JenkinsJobPanel.h \
@@ -30,3 +32,6 @@ HEADERS += \
     $$PWD/interface/jenkinsplugin_global.h
 
 OTHER_FILES += $$PWD/JenkinsPlugin.json
+
+FORMS += \
+   $$PWD/ServerConfigDlg.ui

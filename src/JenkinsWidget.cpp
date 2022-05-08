@@ -2,13 +2,17 @@
 
 #include <JobContainer.h>
 #include <RepoFetcher.h>
+#include <ServerConfigDlg.h>
 
 #include <QButtonGroup>
 #include <QHBoxLayout>
 #include <QNetworkAccessManager>
 #include <QPushButton>
+#include <QSettings>
 #include <QStackedLayout>
 #include <QTimer>
+
+#include <QLogger.h>
 
 namespace Jenkins
 {
@@ -53,13 +57,45 @@ JenkinsWidget::~JenkinsWidget()
    delete mBtnGroup;
 }
 
-void JenkinsWidget::init(const QString &url, const QString &user, const QString &token)
+bool JenkinsWidget::configure(JenkinsPlugin::ConfigData config, const QString &styles)
 {
-   mConfig = IFetcher::Config { user, token, nullptr };
-   mConfig.accessManager.reset(new QNetworkAccessManager());
+   if (!config.endPoint.isEmpty())
+      return false;
 
-   mRepoFetcher = new RepoFetcher(mConfig, url, this);
-   connect(mRepoFetcher, &RepoFetcher::signalViewsReceived, this, &JenkinsWidget::configureGeneralView);
+   if (mConfigured)
+      return true;
+
+   if (config.user.isEmpty() || config.token.isEmpty())
+   {
+      const auto configDlg = new ServerConfigDlg(config, styles, this);
+
+      mConfigured = configDlg->exec() == QDialog::Accepted;
+
+      if (mConfigured)
+      {
+         const auto data = configDlg->getNewConfigData();
+
+         QSettings().setValue(QString("%1/user").arg(data.endPoint), data.user);
+         QSettings().setValue(QString("%1/token").arg(data.endPoint), data.token);
+         QSettings().setValue(QString("%1/endpoint").arg(data.endPoint), data.endPoint);
+
+         mConfig = IFetcher::Config { config.user, config.token, config.endPoint, nullptr };
+         mConfig.accessManager.reset(new QNetworkAccessManager());
+      }
+   }
+
+   return mConfigured;
+}
+
+void JenkinsWidget::start()
+{
+   if (mConfigured)
+   {
+      mRepoFetcher = new RepoFetcher(mConfig, this);
+      connect(mRepoFetcher, &RepoFetcher::signalViewsReceived, this, &JenkinsWidget::configureGeneralView);
+   }
+   else
+      QLog_Error("JenkinsPlugin", "Trying to start JenkinsPlugin without configuring it.");
 }
 
 void JenkinsWidget::update() const

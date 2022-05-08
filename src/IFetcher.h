@@ -18,6 +18,7 @@ public:
    {
       QString user;
       QString token;
+      QString endPoint;
       QSharedPointer<QNetworkAccessManager> accessManager;
    };
 

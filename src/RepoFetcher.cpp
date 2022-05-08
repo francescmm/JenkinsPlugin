@@ -13,9 +13,8 @@ using namespace QLogger;
 namespace Jenkins
 {
 
-RepoFetcher::RepoFetcher(const IFetcher::Config &config, const QString &url, QObject *parent)
+RepoFetcher::RepoFetcher(const IFetcher::Config &config, QObject *parent)
    : IFetcher(config, parent)
-   , mUrl(url)
 {
 }
 
@@ -26,7 +25,7 @@ RepoFetcher::~RepoFetcher()
 
 void RepoFetcher::triggerFetch()
 {
-   get(mUrl);
+   get(mConfig.endPoint);
 }
 
 void RepoFetcher::processData(const QJsonDocument &json)

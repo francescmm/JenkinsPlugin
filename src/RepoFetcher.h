@@ -14,13 +14,12 @@ signals:
    void signalViewsReceived(const QVector<Jenkins::JenkinsViewInfo> &views);
 
 public:
-   explicit RepoFetcher(const IFetcher::Config &config, const QString &url, QObject *parent = nullptr);
+   explicit RepoFetcher(const IFetcher::Config &config, QObject *parent = nullptr);
    ~RepoFetcher();
 
    void triggerFetch() override;
 
 private:
-   QString mUrl;
    void processData(const QJsonDocument &json) override;
 };
 
