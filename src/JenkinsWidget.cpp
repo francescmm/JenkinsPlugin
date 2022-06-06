@@ -14,8 +14,7 @@
 
 #include <QLogger.h>
 
-namespace Jenkins
-{
+using namespace Jenkins;
 
 JenkinsWidget::JenkinsWidget()
    : mStackedLayout(new QStackedLayout())
@@ -105,11 +104,6 @@ void JenkinsWidget::update() const
    mTimer->start();
 }
 
-IJenkinsWidget *JenkinsWidget::createWidget()
-{
-   return new JenkinsWidget();
-}
-
 void JenkinsWidget::configureGeneralView(const QVector<JenkinsViewInfo> &views)
 {
    for (auto &view : views)
@@ -142,4 +136,12 @@ void JenkinsWidget::configureGeneralView(const QVector<JenkinsViewInfo> &views)
    }
 }
 
+IJenkinsWidget *JenkinsWidget::createWidget()
+{
+   return new JenkinsWidget();
+}
+
+IJenkinsWidget *createWidget()
+{
+   return new JenkinsWidget();
 }
